@@ -1,0 +1,40 @@
+{
+  "name": "good-bug-ai-wellness-coach",
+  "version": "1.0.0",
+  "description": "Premium AI wellness coach for gut health",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^15.0.0",
+    "typescript": "^5.0.0",
+    "@openai/sdk": "^4.0.0",
+    "zustand": "^4.4.0",
+    "react-hook-form": "^7.45.0",
+    "recharts": "^2.10.0",
+    "framer-motion": "^10.16.0",
+    "tailwindcss": "^3.4.0",
+    "@prisma/client": "^5.3.0",
+    "next-auth": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.45.0",
+    "eslint-config-next": "^15.0.0",
+    "prettier": "^3.0.0",
+    "jest": "^29.7.0",
+    "@testing-library/react": "^14.0.0"
+  }
+}
