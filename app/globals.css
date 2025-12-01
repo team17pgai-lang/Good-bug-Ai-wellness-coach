@@ -1,0 +1,55 @@
+@import '../styles/theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--cream);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-sm);
+}
+
+.primary-gradient {
+  background-image: var(--primary-gradient);
+}
+
+.primary-accent {
+  background-image: var(--primary-accent);
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.focus-ring {
+  box-shadow: var(--focus-ring);
+}
+
+.snap-carousel {
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1.5rem;
+}
+
+.snap-card {
+  scroll-snap-align: center;
+}
+
