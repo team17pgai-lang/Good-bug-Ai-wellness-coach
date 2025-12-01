@@ -1,378 +1,139 @@
-# The Good Bug - AI Wellness Coach
+# The Good Bug · AI Wellness Companion
 
-Premium gut health companion app powered by AI, behavioral science, and expert oversight.
+Premium mobile-first gut health coach for Indian professionals (SEC A/A-) featuring real-time metrics, AI interventions, and cinematic UI polish.
 
-## Overview
+## Highlights
 
-The Good Bug is a Series B health-tech startup building India's first clinically-designed AI wellness coach for personalized gut health management. This app combines real-time health tracking, contextual AI recommendations, and gamified engagement for SEC A/A- users (ages 28-38).
+- **Four-tab experience:** Health Dashboard, Wellness Chat, Profile Hub, Community (teaser) with animated bottom navigation.
+- **Live Gut Score:** Circular gauge, trend chart, and flashcards driven by behavioral data + scoring heuristics.
+- **Quick Logging:** Water meter, stress slider, Bristol stool selector, and lifestyle inputs with rich feedback and motion.
+- **AI Chatbot:** Gradient chat interface, inline product cards, smart suggestions, and typing indicators.
+- **Profile Ops:** Medical snapshot, milestones/streaks, account controls, export/delete links, compliance-ready.
+- **Design System:** Extensive token sheet (gradients, shadows, states) exported to CSS variables + Tailwind theme.
 
-## Key Features
+## Stack
 
-**Health Tracking**
-- Real-time gut score (0-100) with dynamic calculation
-- 7-day trend visualization with smooth animations
-- Symptom logging (bloating, constipation, acidity, stress)
-- Stool quality tracking using Bristol Scale (7 types)
-- Sleep, hydration, and activity metrics
+- **Frontend:** Next.js 15 (App Router), React 18, TypeScript, Tailwind CSS, Framer Motion, Recharts.
+- **State & Data:** Local mock data, Prisma schema, utility scoring engine, typed constants.
+- **Backend Surface:** Next.js API routes for logs, score, chat echo, and nudges (ready for real services).
+- **Tooling:** ESLint (Next config), Prettier, Jest, Tailwind, PostCSS, GitHub Actions CI, Prisma client.
 
-**AI Chatbot (Wellness)**
-- Context-aware conversational AI powered by GPT-4 Turbo
-- Product recommendations inline (Synbiotic Mix, Fiber Blend, etc.)
-- Personalized wellness insights based on symptom patterns
-- Session memory (remembers previous conversations)
-- Expert escalation for complex cases
-
-**Gut Facts Carousel**
-- Horizontal swipeable flashcards with gut health facts
-- 8+ educational cards on probiotics, fiber, stress, hydration
-- Visual gradients and smooth scroll-snap behavior
-- Bookmarkable facts with share functionality
-
-**Smart Nudge System**
-- Day-based milestones (Day 1, 3, 7, 14, 21, 30)
-- Trigger-based nudges (high stress, low hydration, poor streaks)
-- Timezone-aware scheduling with quiet hours
-- Customizable frequency (daily, weekly, bi-weekly)
-
-**Profile & Customization**
-- Medical profile management (conditions, allergies, medications)
-- Health summary cards (streak, consistency, improvement)
-- Account settings (notifications, language, dark mode)
-- Data privacy controls (DPDPA compliant)
-
-## Tech Stack
-
-**Frontend**
-- Next.js 15 (React 18, TypeScript)
-- Tailwind CSS 3.4 (mobile-first design)
-- Framer Motion (advanced animations)
-- Recharts (data visualization)
-- shadcn/ui (accessible components)
-- Zustand (global state management)
-
-**Backend**
-- Next.js API Routes
-- PostgreSQL 14+
-- Prisma ORM (type-safe queries)
-- OpenAI GPT-4 Turbo API
-- NextAuth.js (authentication)
-
-**Infrastructure**
-- Vercel (frontend hosting, auto-deploy)
-- Supabase (managed PostgreSQL)
-- Redis (optional caching)
-- SendGrid (email delivery)
-- Sentry (error tracking)
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- PostgreSQL 14+ (or Supabase account)
-- OpenAI API key
-- Git
-
-### Installation
+## Quick Start
 
 ```bash
-# Clone repository
-git clone https://github.com/team17pgai-lang/Good-bug-Ai-wellness-coach.git
-cd Good-bug-Ai-wellness-coach
-
-# Install dependencies
 npm install
-
-# Setup environment variables
-cp .env.local.example .env.local
-
-# Edit .env.local with your credentials:
-# DATABASE_URL=postgresql://...
-# OPENAI_API_KEY=sk-...
-# NEXTAUTH_SECRET=<generate-random-string>
-```
-
-### Database Setup
-
-```bash
-# Generate Prisma client
-npx prisma generate
-
-# Run migrations
-npx prisma migrate dev --name init
-
-# Optional: Seed database
-npx prisma db seed
-```
-
-### Development
-
-```bash
-# Start dev server
+cp .env.local.example .env.local    # fill credentials
+npx prisma generate                 # optional for local DB
 npm run dev
-
-# Open http://localhost:3000
 ```
 
-The app runs with hot-reload enabled.
+Visit `http://localhost:3000` (mobile viewport recommended).  
+Additional scripts: `npm run lint`, `npm run type-check`, `npm run test`, `npm run build`.
 
-## Project Structure
+## Environment
+
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | PostgreSQL / Supabase connection |
+| `OPENAI_API_KEY` | Chat + nudges intelligence |
+| `NEXTAUTH_URL`, `NEXTAUTH_SECRET` | Auth callbacks |
+| `NEXT_PUBLIC_*` | Client-side config (app name, Supabase, version) |
+| `SENDGRID_API_KEY` | Notification email channel |
+
+See `.env.local.example` for the full list.
+
+## App Anatomy
 
 ```
-good-bug-ai-wellness-coach/
-├── app/
-│   ├── api/                    # API routes (logs, chat, scoring)
-│   ├── components/             # React components (tabs, charts, inputs)
-│   ├── page.tsx                # Main app entry
-│   └── layout.tsx              # Root layout
-├── lib/
-│   ├── db.ts                   # Database client
-│   ├── scoring.ts              # Gut score calculation
-│   ├── types.ts                # TypeScript interfaces
-│   └── constants.ts            # Color codes, config
-├── prisma/
-│   └── schema.prisma           # Database schema
-├── public/
-│   └── icons/                  # SVG icons (stool types, etc.)
-└── styles/
-    └── globals.css             # Tailwind + CSS variables
+app/
+  layout.tsx · global font + metadata
+  page.tsx   · tab orchestrator + navigation
+  components/
+    Dashboard.tsx        · Tab 1 experience (gauge, chart, cards, logging)
+    GutScoreGauge.tsx    · SVG donut animation (1.5s ease-out)
+    TrendChart.tsx       · 7-day AreaChart + baseline line
+    FactCarousel.tsx     · scroll-snap flashcards, active scaling + dots
+    WaterMeter.tsx       · ring tracker + preset adjustments
+    StressSlider.tsx     · emoji thumb slider + presets
+    StoolSelector.tsx    · Bristol scale cards
+    Chat.tsx / ChatInterface.tsx · Gradient chat canvas + suggestions, inline commerce
+    Profile.tsx          · Gradient hero, 2x2 stat grid, settings, footer
+    Community.tsx        · Placeholder hero (future phase)
+    Navigation.tsx       · Bottom tab bar (underline, 200ms motion)
+app/api/
+  logs/route.ts          · mock CRUD + scoring
+  chat/route.ts          · placeholder wellness response
+  score/route.ts         · live score + forecast
+  nudges/route.ts        · milestone nudges feed
+lib/
+  constants.ts           · palettes, cards, presets, chat suggestions
+  mockData.ts            · seed logs + conversation
+  scoring.ts             · deduction/bonus engine (clamped 0-100)
+  types.ts               · shared TypeScript interfaces
+  utils.ts               · status helpers + formatting
+prisma/schema.prisma     · Users, HealthLogs, Conversations, Messages
+styles/theme.css         · CSS variables for colors/shadows
 ```
 
-## API Endpoints
+## Gut Score Logic
 
-### Health Logs
-```
-POST /api/logs/create
-  Input: { bloating, constipation, acidity, stress, sleep, exercise, meals, waterIntake, stoolType }
-  Output: { logId, gutScore, trends, nextTargets }
-  
-GET /api/logs/get-user
-  Input: { userId, daysBack: 7 }
-  Output: [ { date, symptoms, score, timestamp } ]
-```
-
-### AI Chat
-```
-POST /api/chat/send
-  Input: { userId, message, conversationId, history: [...] }
-  Output: { messageId, botResponse, intent, recommendedProducts, sentiment }
-  
-GET /api/chat/history
-  Input: { userId, conversationId }
-  Output: [ { role, content, timestamp, intent } ]
+```ts
+let score = 100;
+score -= bloating * 2.5;
+score -= constipation * 3.0;
+score -= acidity * 2.0;
+score -= stressLevel * 1.5;
+score -= Math.max(0, 8 - sleepHours) * 1.5;
+if (exerciseMinutes < 15) score -= 5;
+if (logged 5+ days) score += 5;
+score += Math.min(streak, 7);
+if (waterIntake > 3) score += 3;
+if (mealQuality >= 4) score += 2;
+if (exerciseMinutes > 30) score += 3;
+return clamp(score, 0, 100);
 ```
 
-### Gut Score
-```
-GET /api/score/calculate
-  Input: { userId }
-  Output: { score (0-100), change, trend, nextMilestone }
-```
+Delta copy surfaces `"↑ +8 vs last week"`, `"→ Same as last week"`, etc., matching the brand tone.
 
-### Nudges
-```
-POST /api/nudges/schedule
-  Input: { userId, trigger, message, timing }
-  Output: { nudgeId, scheduledFor, status }
-  
-GET /api/nudges/check
-  Input: { userId }
-  Output: [ { message, type, action } ]
-```
+## Design Tokens (excerpt)
 
-### User Profile
-```
-GET /api/user/profile
-  Input: { userId }
-  Output: { user, medicalInfo, preferences, stats }
+| Token | Sample |
+| --- | --- |
+| `--primary-gradient` | `linear-gradient(135deg, #A29BFE → #1DD1A1)` |
+| `--shadow-xl` | `0 20px 40px rgba(0,0,0,0.15)` |
+| Status colors | Excellent `#1DD1A1`, Good `#06B6D4`, Fair `#FDCB6E`, Poor `#FF7675` |
+| Surface | Cream `#F8F9FA`, Off-white `#FAFBFC` |
 
-PUT /api/user/profile
-  Input: { userId, updates }
-  Output: { updatedUser }
-```
+Exported through `styles/theme.css` and re-used via Tailwind extensions + CSS utilities (`glass-panel`, `focus-ring`, `snap-carousel`).
 
-## Database Schema
+## API Surface (Mock)
 
-### Users Table
-```sql
-- userId (UUID, primary key)
-- email, name, age, gender, phone
-- primaryGutIssue, medicalHistory, allergies
-- currentMedications, dietType
-- createdAt, updatedAt
-```
+- `GET /api/logs` – returns sample logs (ready for DB swap)
+- `POST /api/logs` – echoes payload + recalculated score
+- `POST /api/chat` – placeholder assistant reply
+- `GET /api/score` – exposes score, delta, milestone forecast
+- `GET /api/nudges` – milestone nudges (day 0 → 30)
 
-### Health Logs Table
-```sql
-- logId (UUID, primary key)
-- userId (foreign key)
-- date (indexed for queries)
-- bloating, constipation, acidity (1-10)
-- stressLevel (1-10), sleepHours (1-12)
-- mealQuality (1-5), stoolType (type_1 to type_7)
-- waterIntake (liters), exerciseMinutes
-- gutScoreCalculated (0-100)
-- timestamp (with timezone)
-```
+Upgrade paths: replace mock data with Prisma queries + OpenAI integration inside these handlers.
 
-### Conversations Table
-```sql
-- conversationId (UUID)
-- userId (foreign key)
-- title, topic
-- messageCount, firstMessageAt, lastMessageAt
-- gutScoreAtStart, gutScoreAtEnd
-```
+## CI/CD
 
-### Messages Table
-```sql
-- messageId (UUID)
-- conversationId (foreign key)
-- role (user / assistant)
-- content (message text)
-- intent (log_symptom, ask_question, recommend_product)
-- extractedSymptoms (array)
-- recommendedProducts (array)
-- sentiment (positive / neutral / negative)
-- timestamp
-```
+GitHub Actions workflow (`.github/workflows/deploy.yml`) runs install → lint → type-check → tests → build on PRs & main pushes.  
+Optimized for Node 18 (matching Next.js 15 requirements).
 
-## Features & Roadmap
+## Roadmap
 
-### Current (v1.0)
-- [x] Health metrics dashboard
-- [x] AI chatbot with context memory
-- [x] Real-time gut score calculation
-- [x] Profile management
-- [x] Gut facts carousel
-- [x] Nudge scheduling
-- [x] DPDPA compliance
+- Community feed & challenges
+- Wearable integration (Apple Health, Google Fit)
+- Multi-language UI (हिंदी first), Dark Mode, Offline-first PWA
+- Product bundles, subscription stack, microbiome test ingestion
 
-### Next Phase (v1.1)
-- [ ] Community features
-- [ ] Wearable integration (Apple Health, Google Fit)
-- [ ] Multi-language support (हिंदी)
-- [ ] Dark mode
-- [ ] Advanced analytics dashboard
+## Support
 
-### Future (v2.0)
-- [ ] Microbiome test integration
-- [ ] Personalized product bundles
-- [ ] Telemedicine integration
-- [ ] Offline-first PWA
-- [ ] Subscription management
-
-## Performance Targets
-
-**Lighthouse Metrics**
-- Performance: 90+
-- Accessibility: 95+
-- Best Practices: 95+
-- SEO: 95+
-
-**Core Web Vitals**
-- First Contentful Paint (FCP): < 1.5s
-- Largest Contentful Paint (LCP): < 2.5s
-- Cumulative Layout Shift (CLS): < 0.1
-- Time to Interactive (TTI): < 3s
-
-## Deployment
-
-### Vercel (Recommended)
-
-```bash
-# Connect GitHub repo to Vercel dashboard
-# Set environment variables
-# Deploy automatically on git push
-```
-
-### Manual Deploy
-
-```bash
-npm run build
-npm start
-```
-
-## Development Guidelines
-
-### Code Style
-- TypeScript strict mode enabled
-- ESLint + Prettier formatting
-- Component-driven architecture
-- Mobile-first responsive design
-
-### Running Tests
-```bash
-npm test                    # Unit tests
-npm run test:e2e           # E2E tests
-npm run type-check         # Type checking
-```
-
-### Linting & Formatting
-```bash
-npm run lint               # Check linting
-npm run format             # Auto-format code
-```
-
-## Security & Privacy
-
-### Encryption
-- **At Rest:** AES-256-CBC with AWS KMS
-- **In Transit:** TLS 1.3 enforced
-- **On Device:** OS-level encryption (Keychain/EncryptedSharedPreferences)
-
-### Compliance
-- DPDPA compliant (India)
-- User consent management
-- Right to deletion
-- Data export capability
-- No third-party sharing
-
-### Authentication
-- NextAuth.js with JWT
-- 24-hour token expiry
-- 30-day refresh token rotation
-- Bcrypt password hashing (12 rounds)
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
-
-**Guidelines:**
-- Write tests for new features
-- Follow TypeScript strict mode
-- Update README for major changes
-- Reference GitHub issues in commits
-
-## Support & Contact
-
-**Email:** support@thegoodbug.in  
-**Website:** www.thegoodbug.in  
-**Issues:** GitHub Issues tab  
-
-## License
-
-MIT License - see LICENSE.md for details
+- Email: `support@thegoodbug.in`
+- Website: `https://www.thegoodbug.in`
+- Issues: GitHub tracker
 
 ---
 
-## Success Metrics (KPIs)
-
-| Metric | Target |
-|--------|--------|
-| D1 Retention | > 75% |
-| D7 Retention | > 50% |
-| D30 Retention | > 25% |
-| Chat → Product Click | > 40% |
-| Gut Score Improvement (30d avg) | +20 points |
-| NPS Score | > 50 |
-| App Rating | > 4.6/5 |
-| Zero Critical Bugs | Per release |
-
----
-
-**Built with ❤️ to make gut health personal in India**
+**Built with ❤️ to restore Indian gut health, one premium ritual at a time.**

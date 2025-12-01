@@ -1,0 +1,10 @@
+{
+  "name": "The Good Bug",
+  "short_name": "GoodBug",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9FA",
+  "theme_color": "#1DD1A1",
+  "description": "Premium gut health companion with AI wellness intelligence.",
+  "icons": []
+}
